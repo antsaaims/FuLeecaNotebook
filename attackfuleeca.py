@@ -3,6 +3,25 @@
 # Contains all the functions that are needed to generate public and secret key, prepare them for the attack and run the attack
 # Please do not change this file, call it using from attackfuleeca import* to use all the functions
 import subprocess
+import pandas as pd
+import numpy as np
+import galois
+import random as rnd
+from scipy.linalg import circulant
+from functools import reduce
+from pyomo.environ import *
+import matplotlib.pyplot as plt
+from pyomo.common.timing import TicTocTimer
+from math import exp, floor
+from amplpy import modules
+modules.install('highs')
+modules.install('gurobi')
+print('Solver you already have')
+print(modules.installed())
+
+class attackfuleeca:
+    
+
 def install(module, tool = 'pip'):
     '''Check if a python library is install and intsall it'''
     subprocess.check_call([tool, 'install', module])
@@ -12,21 +31,6 @@ def requirements():
         install(module)
     print('If you did not intsall your amplpy licence yet,\n please visit https://ampl.com/ce and request a community licence\n after that tyoe "amplpy.modules activate <your license-uuid>"\n You may also find the ampl.modules documentation here https://dev.ampl.com/ampl/python/modules.html useful')
     print("If you plan to use Gurobi, you need top request a licence at gurobi.com")
-    import pandas as pd
-    import numpy as np
-    import galois
-    import random as rnd
-    from scipy.linalg import circulant
-    from functools import reduce
-    from pyomo.environ import *
-    import matplotlib.pyplot as plt
-    from pyomo.common.timing import TicTocTimer
-    from math import exp, floor
-    from amplpy import modules
-    modules.install('highs')
-    modules.install('gurobi')
-    print('Solver you already have')
-    print(modules.installed())
     return(None)
 #Level 1 FuLeeca From Actual authors
 mset1 = [65363, 65364, 65365, 65366, 65367, 65368, 65369, 65370, 65371, 65372, 65373, 65374, 65375, 65376, 65377, 65378, 65379, 65380, 65381, 65382, 65383, 65384, 65385, 65386, 65387, 65388, 65389, 65390, 65391, 65392, 65393, 65394, 65395, 65396, 65397, 65398, 65399, 65400, 65401, 65402, 65403, 65404, 65405, 65406, 65407, 65408, 65409, 65410, 65411, 65412, 65413, 65414, 65415, 65416, 65417, 65418, 65419, 65420, 65421, 65422, 65423, 65424, 65425, 65426, 65427, 65428, 65429, 65430, 65431, 65432, 65433, 65434, 65435, 65436, 65437, 65438, 65439, 65440, 65441, 65442, 65443, 65444, 65445, 65446, 65447, 65448, 65449, 65450, 65451, 65452, 65453, 65454, 65455, 65456, 65457, 65458, 65459, 65460, 65461, 65462, 65463, 65463, 65464, 65464, 65465, 65465, 65466, 65466, 65467, 65467, 65468, 65468, 65469, 65469, 65470, 65470, 65471, 65471, 65472, 65472, 65473, 65473, 65474, 65474, 65475, 65475, 65476, 65476, 65477, 65477, 65478, 65478, 65479, 65479, 65480, 65480, 65481, 65481, 65482, 65482, 65482, 65483, 65483, 65483, 65484, 65484, 65484, 65485, 65485, 65485, 65486, 65486, 65486, 65487, 65487, 65487, 65488, 65488, 65488, 65489, 65489, 65489, 65490, 65490, 65490, 65491, 65491, 65491, 65492, 65492, 65492, 65493, 65493, 65493, 65494, 65494, 65494, 65495, 65495, 65495, 65495, 65496, 65496, 65496, 65496, 65497, 65497, 65497, 65497, 65498, 65498, 65498, 65498, 65499, 65499, 65499, 65499, 65500, 65500, 65500, 65500, 65501, 65501, 65501, 65501, 65502, 65502, 65502, 65502, 65503, 65503, 65503, 65503, 65504, 65504, 65504, 65504, 65505, 65505, 65505, 65505, 65506, 65506, 65506, 65506, 65506, 65507, 65507, 65507, 65507, 65507, 65508, 65508, 65508, 65508, 65508, 65509, 65509, 65509, 65509, 65509, 65510, 65510, 65510, 65510, 65510, 65511, 65511, 65511, 65511, 65511, 65512, 65512, 65512, 65512, 65512, 65513, 65513, 65513, 65513, 65513, 65514, 65514, 65514, 65514, 65514, 65514, 65515, 65515, 65515, 65515, 65515, 65515, 65516, 65516, 65516, 65516, 65516, 65516, 65517, 65517, 65517, 65517, 65517, 65517, 65518, 65518, 65518, 65518, 65518, 65518, 65519, 65519, 65519, 65519, 65519, 65519, 65520, 65520, 65520, 65520, 65520, 65520, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 6, 6, 6, 6, 6, 6, 7, 7, 7, 7, 7, 7, 8, 8, 8, 8, 8, 9, 9, 9, 9, 9, 10, 10, 10, 10, 10, 11, 11, 11, 11, 11, 12, 12, 12, 12, 12, 13, 13, 13, 13, 13, 14, 14, 14, 14, 14, 15, 15, 15, 15, 15, 16, 16, 16, 16, 17, 17, 17, 17, 18, 18, 18, 18, 19, 19, 19, 19, 20, 20, 20, 20, 21, 21, 21, 21, 22, 22, 22, 22, 23, 23, 23, 23, 24, 24, 24, 24, 25, 25, 25, 25, 26, 26, 26, 26, 27, 27, 27, 28, 28, 28, 29, 29, 29, 30, 30, 30, 31, 31, 31, 32, 32, 32, 33, 33, 33, 34, 34, 34, 35, 35, 35, 36, 36, 36, 37, 37, 37, 38, 38, 38, 39, 39, 39, 40, 40, 41, 41, 42, 42, 43, 43, 44, 44, 45, 45, 46, 46, 47, 47, 48, 48, 49, 49, 50, 50, 51, 51, 52, 52, 53, 53, 54, 54, 55, 55, 56, 56, 57, 57, 58, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
@@ -173,4 +177,94 @@ def T_to_dat(level=0, T ,filename = 'toyexample'):
         f.write(s)
     print('Task done, see your file at ' + filename +'.dat')
     return(s)
+
+##attack
+def __init__(self):        
+    model = AbstractModel()
+    model.level = Param()
+    model.halfn = Param()
+    model.p = Param()
+    model.uba = Param() #upper bound of a     
+    model.i = Set()
+    model.j = RangeSet(1, model.halfn)
+    model.T = Param(model.i,model.j, within=Reals)
+    model.Mset = Param(model.i, within=Reals)
+
+    def initval(model,i):
+        return random.randint(-model.uba,model.uba) #initialization of the variable
+    def init0(model,i):
+        return(0)
+    def init1(model,i,j):
+        return(0)
+    model.a = Var(model.i, bounds=(-model.uba,model.uba), within= Reals, initialize=initval)
+    model.b = Var(model.i, bounds=(-model.uba,model.uba) , within= Reals, initialize=initval)
+    model.q = Var(model.i, within=Integers,initialize=init0)
+    model.Pa = Var(model.i,model.j,  bounds=(-1,1), within=Integers,initialize=init1) 
+    model.Pb = Var(model.i,model.j,  bounds=(-1,1), within=Integers,initialize=init1) 
+
+    def rule_baT(model,i):
+            return(np.sum([model.a[j]*model.T[j,i] for j in model.j ]) == model.q[i]*model.p + model.b[i])#b =aT    
+    model.C1   = Constraint(model.i,rule=rule_baT)
+
+    def rule_a(model,i):
+        return(sum([model.Mset[j]*model.Pa[j,i] for j in model.j]) == model.a[i])#building a
+    model.Ca = Constraint(model.i, rule = rule_a)
+    def rule_b(model,i):
+        return(sum([model.Mset[j]*model.Pb[j,i] for j in model.j]) == model.b[i])#building a
+    model.Cb = Constraint(model.i, rule = rule_b)
+
+    def rule_cPa(model,i):
+        return((sum([(model.Pa[j,i])**2  for j in model.j]))==1)#each column exactly one nonzero elements  
+    model.cPa = Constraint(model.i, rule = rule_cPa)
+    def rule_cPb(model,i):
+        return((sum([(model.Pb[j,i])**2 for j in model.j])) ==1)#each column has exactly one nonzero elements  
+    model.cPb = Constraint(model.i, rule = rule_cPb)
+    def rule_rPa(model,i):
+        return((sum([(model.Pa[i,j])**2 for j in model.j])) ==1)#each row exactly one nonzero elements  
+    model.rPa = Constraint(model.i, rule = rule_rPa)
+    def rule_rPb(model,i):
+        return((sum([(model.Pb[i,j])**2 for j in model.j])) ==1)#each row has exactly one nonzero elements  
+    model.rPb = Constraint(model.i, rule = rule_rPb)
+
+    def rule_OF(model):
+        return sum(model.q[i] for i in model.i)
+
+    model.obj = Objective(rule=rule_OF, sense=maximize)
+    #opt.options['max_iter'] = 100000
+
+
+def forge_sk(filename = "toyexample.dat", store_at = "forgedsk.txt", solvername = 'highs',verbose = False):
+    opt = SolverFactory(modules.find(solvername), solve_io="nl") #Couenne was good, ipopt did not give a result(always max iteration)
+    timer = TicTocTimer()
+    timer.tic('starting timer')
+    instance = model.create_instance(filename)
+    print('We just have built the instance, start solving stay tuned!')
+    results = opt.solve(instance,keepfiles=True, logfile="my.log")
+
+    
+    if (results.solver.status == SolverStatus.ok) and (results.solver.termination_condition == TerminationCondition.optimal):
+        print('feasible')
+    elif (results.solver.termination_condition == TerminationCondition.infeasible):
+        print('infeasible')
+    else:
+        print ('Solver Status:',  results.solver.status)
+    print(value(instance.obj))
+    a = [int(round(instance.a[i].value,0)) for i in instance.i]
+    b = [int(round(instance.b[i].value,0)) for i in instance.i]
+    sk = a+b
+    T = [[instance.T[i,j] for j in instance.j] for i in instance.i]
+    p = instance.p.value
+    print('Verifying that indeed aT = b mod p \n This should be 1 if the sekret keys are valid:\n')
+    isokay = prod(np.dot(a,T) %p == np.array(b)%p)
+    print(isokay)
+    #Write a and b in a file 
+    np.savetxt(store_at, sk, fmt="%d", delimiter=",")
+    dT = timer.toc('task 1')
+    print("elapsed time: %0.1f s" % dT)
+    if verbose:
+        print('Value of a' + str(a))
+        print('Value of b' + str(b))
+    return([isokay,dT])
+
+
 

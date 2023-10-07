@@ -282,6 +282,7 @@ class attack():
             opt.options['ZeroObjNodes'] =5  #we want to run an heuristic search if the model did not find anything
             opt.options['IntegralityFocus'] =1 #Please take the integrality seriously
             opt.options['SubMIPCuts'] =2
+            opt.options['Threads'] =16
         timer = TicTocTimer()
         timer.tic('starting timer')
         instance = self.model.create_instance(filename)

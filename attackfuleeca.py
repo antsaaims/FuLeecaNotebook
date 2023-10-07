@@ -100,7 +100,7 @@ class attack():
         elif level ==1:
             p = 65521
             mset = mset1
-        elif level in SmallInstancesHalfn:
+        elif level in self.SmallInstancesHalfn:
             p = 65521
             mset =  MakeTLS(level)
         else: 
@@ -156,7 +156,7 @@ class attack():
             p = 65521
             halfn = 659
             mset = mset1
-        elif level in SmallInstancesHalfn:
+        elif level in self.SmallInstancesHalfn:
             p = 65521
             mset =  MakeTLS(level)
             halfn = level

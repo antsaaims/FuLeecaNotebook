@@ -1,6 +1,7 @@
 import attackfuleeca #importing the class
 from datetime import datetime
 import pandas as pd
+attack = attackfuleeca.attack()
 def attack42(i):
     s = datetime.now()
     now = s.strftime("%Y%m%d%H%M%S") + 'iter' +str(i) #just in case they are solved very fast

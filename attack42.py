@@ -23,4 +23,4 @@ for i in range(10):
     attackdf = pd.DataFrame([infolist], columns =['Level', 'PKFilename',
                                                 'SKorigfilename', 'ForgeSKFilename', 
                                                 'Succes','ElapsedTime'])
-    attackdf.to_csv("attackdf.csv",index=True,header=False,mode="a") 
+    attackdf.to_csv("attackdf.csv",index=False,header=False,mode="a") 

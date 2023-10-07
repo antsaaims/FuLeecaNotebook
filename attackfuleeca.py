@@ -19,7 +19,7 @@ modules.install('gurobi')
 print('Solver you already have')
 print(modules.installed())
 def install(module, tool = 'pip'):
-    '''Check if a python library is install and intsall it'''
+    '''Check if a python library is install it'''
     subprocess.check_call([tool, 'install', module])
     print(f"The module {module} was installed")
 # def requirements():    
@@ -268,7 +268,7 @@ class attack():
 
 
         def rule_OF(model):
-            return sum(model.q[i] for i in model.i)
+            return 0 #We only need feasibility
 
         self.model.obj = Objective(rule=rule_OF, sense=maximize)
     def forge_lin_sk(self,filename = "toyexample.dat", store_at = "forgedsk.txt", solvername = 'gurobi', ampl = False, verbose = False):

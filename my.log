@@ -1,0 +1,67 @@
+Solver command line: ['C:\\gurobi1001\\win64\\bin\\gurobi.bat']
+
+Set parameter Username
+Academic license - for non-commercial use only - expires 2024-02-03
+Read LP format model from file C:\Users\18645\AppData\Local\Temp\tmpa584tcvo.pyomo.lp
+Reading time = 0.01 seconds
+x1: 121 rows, 561 columns, 1529 nonzeros
+Set parameter MIPFocus to value 1
+Set parameter ZeroObjNodes to value 5
+Set parameter IntegralityFocus to value 1
+Set parameter SubMIPCuts to value 2
+Gurobi Optimizer version 10.0.1 build v10.0.1rc0 (win64)
+
+CPU model: AMD Ryzen 5 5625U with Radeon Graphics, instruction set [SSE2|AVX|AVX2]
+Thread count: 6 physical cores, 12 logical processors, using up to 12 threads
+
+Optimize a model with 121 rows, 561 columns and 1529 nonzeros
+Model fingerprint: 0x49ec527b
+Variable types: 66 continuous, 495 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 5e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 2e+00]
+  RHS range        [1e+00, 1e+00]
+Presolve removed 11 rows and 77 columns
+Presolve time: 0.00s
+Presolved: 110 rows, 484 columns, 1375 nonzeros
+Variable types: 0 continuous, 484 integer (418 binary)
+
+Root relaxation: objective 5.500000e+01, 182 iterations, 0.00 seconds (0.00 work units)
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0   55.00000    0    7          -   55.00000      -     -    0s
+     0     0   55.00000    0   26          -   55.00000      -     -    0s
+H    0     0                      53.0000000   55.00000  3.77%     -    0s
+     0     0   55.00000    0   12   53.00000   55.00000  3.77%     -    0s
+     0     0   55.00000    0    9   53.00000   55.00000  3.77%     -    0s
+     0     0   55.00000    0   30   53.00000   55.00000  3.77%     -    0s
+     0     0   55.00000    0   31   53.00000   55.00000  3.77%     -    0s
+     0     0   55.00000    0    8   53.00000   55.00000  3.77%     -    0s
+     0     0   55.00000    0   18   53.00000   55.00000  3.77%     -    0s
+     0     0   55.00000    0    7   53.00000   55.00000  3.77%     -    0s
+     0     0   55.00000    0   31   53.00000   55.00000  3.77%     -    0s
+     0     0   55.00000    0    8   53.00000   55.00000  3.77%     -    0s
+     0     2   55.00000    0    8   53.00000   55.00000  3.77%     -    0s
+  3882   394   55.00000    9   24   53.00000   55.00000  3.77%  10.6    5s
+  8383     5     cutoff   16        53.00000   54.20000  2.26%  11.4   10s
+
+Cutting planes:
+  Gomory: 33
+  Lift-and-project: 1
+  MIR: 41
+  StrongCG: 5
+  Flow cover: 2
+  Inf proof: 30
+  Relax-and-lift: 1
+
+Explored 8401 nodes (96732 simplex iterations) in 10.03 seconds (9.10 work units)
+Thread count was 12 (of 12 available processors)
+
+Solution count 1: 53 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 5.300000000000e+01, best bound 5.300000000000e+01, gap 0.0000%
+

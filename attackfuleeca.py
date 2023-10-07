@@ -61,7 +61,38 @@ class attack():
     #Key Generation ALgorithm in Python
      # choose 0 for toy example, 1,3,5 for each corresponding NIST security level
     #Key Generation
-
+    def poly_transform_to_two_side(self,poly):
+        '''Transforms one sided shuffled
+        typical set to two sided 
+        by flipping random entries''' 
+        howtoflip = np.array([rnd.choice([1,-1]) for i in range(len(poly))])
+        return(np.array(poly)*howtoflip)
+    def makeMset(self,level):
+        if level == 0:
+            p = 5
+            mset = [0, 0, 0, 1, 1, 2, 2, 3, 4, 4, 4]        
+        elif level ==1:
+            p = 65521
+            mset = mset1
+        elif level in SmallInstancesHalfn:
+            p = 65521
+            mset =  MakeTLS(level)
+        else: 
+            print("That level does not exists in this module")
+            return(None)
+        #Define typical set based on param set
+        Mset = np.array([min(abs(x - p),x) for x in mset])
+        return(Mset)
+        
+    def poly_sample_from_typical_set(self, level = 0):
+        '''Generate an element of the typical Lee set'''
+        #Init and shuffle range array
+        Mset = self.makeMset(level)
+        res = reduce(lambda acc, _: np.random.permutation(acc),
+                 range(len(Mset)), np.array(Mset))
+        poly = res.tolist()
+        #Use random bits to flip signs of coeffs. in key    
+        return(self.poly_transform_to_two_side(poly))
     def generate_key(self,level =0, verbose = False, pkfilename = 'T.csv', skfilename = "toysk.txt"):
         #Setting the parameters corresponding to the security level
         if level == 0:
@@ -78,23 +109,10 @@ class attack():
             return(None)
         #Define typical set based on param set
         GF = galois.GF(p)
-        Mset = np.array([min(abs(x - p),x) for x in mset])
+        Mset = np.array([min(abs(x - p),x) for x in mset])        
         halfn = len(Mset) 
         uba = (p-1)//2 #upper bound of a 
-        def poly_transform_to_two_side(self,poly):
-            '''Transforms one sided shuffled
-            typical set to two sided 
-            by flipping random entries''' 
-            howtoflip = np.array([rnd.choice([1,-1]) for i in range(len(poly))])
-            return(np.array(poly)*howtoflip)
-        def poly_sample_from_typical_set(self):
-            '''Generate an element of the typical Lee set'''
-            #Init and shuffle range array
-            res = reduce(lambda acc, _: np.random.permutation(acc),
-                     range(len(Mset)), np.array(Mset))
-            poly = res.tolist()
-            #Use random bits to flip signs of coeffs. in key    
-            return(self.poly_transform_to_two_side(poly))
+        
         b_orig = self.poly_sample_from_typical_set()
         stop = 0
         while not stop:
@@ -196,7 +214,7 @@ class attack():
         self.model.a = Var(self.model.i, bounds=(-self.model.uba,self.model.uba), within= Reals, initialize=init0)
         self.model.ap = Var(self.model.i, bounds=(0,self.model.uba), within= Reals, initialize=init0)
         self.model.am = Var(self.model.i, bounds=(-self.model.uba,0), within= Reals, initialize=init0) # am
-        self.model.b = Var(self.model.i, bounds=(-self.model.uba,model.uba) , within= Reals, initialize=init0)
+        self.model.b = Var(self.model.i, bounds=(-self.model.uba,self.model.uba) , within= Reals, initialize=init0)
         self.model.bp = Var(self.model.i, bounds=(0,self.model.uba) , within= Reals, initialize=init0)
         self.model.bm = Var(self.model.i, bounds=(-self.model.uba,0) , within= Reals, initialize=init0)
         self.model.q = Var(self.model.i, within=Integers,initialize=init0)
@@ -253,7 +271,7 @@ class attack():
             return sum(model.q[i] for i in model.i)
 
         self.model.obj = Objective(rule=rule_OF, sense=maximize)
-    def forge_lin_sk(self,filename = "toyexample.dat", store_at = "forgedsk.txt", solvername = 'highs', ampl = True, verbose = False):
+    def forge_lin_sk(self,filename = "toyexample.dat", store_at = "forgedsk.txt", solvername = 'gurobi', ampl = False, verbose = False):
         if ampl==True:
             opt = SolverFactory(modules.find(solvername), solve_io="nl") #Couenne was good, ipopt did not give a result(always max iteration)
         else:
@@ -278,11 +296,11 @@ class attack():
         else:
             print ('Solver Status:',  results.solver.status)
         print(value(instance.obj))
+        p = instance.p.value
         a = [int(round(instance.a[i].value,0))%p for i in instance.i]
         b = [int(round(instance.b[i].value,0))%p for i in instance.i]
         sk = a+b
         T = [[instance.T[i,j] for j in instance.j] for i in instance.i]
-        p = instance.p.value
         print('Verifying that indeed aT = b mod p \n This should be 1 if the sekret keys are valid:\n')
         prodat = np.dot(a,T) %p
         isokay = prod(prodat == np.array(b))

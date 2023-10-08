@@ -75,7 +75,7 @@ class attack():
             mset = mset1
         elif level in self.SmallInstancesHalfn:
             p = 65521
-            mset =  MakeTLS(level)
+            mset =  self.MakeTLS(halfn = level)
         else: 
             print("That level does not exists in this module")
             return(None)
@@ -102,20 +102,21 @@ class attack():
             mset = mset1
         elif level in self.SmallInstancesHalfn:
             p = 65521
-            mset =  MakeTLS(level)
+            mset = self.MakeTLS(level)
         else: 
             print("That level does not exists in this module")
             return(None)
+        print('p is' + str(p))
         #Define typical set based on param set
         GF = galois.GF(p)
         Mset = np.array([min(abs(x - p),x) for x in mset])        
         halfn = len(Mset) 
         uba = (p-1)//2 #upper bound of a 
         
-        b_orig = self.poly_sample_from_typical_set()
+        b_orig = self.poly_sample_from_typical_set(level)
         stop = 0
         while not stop:
-            a_orig = self.poly_sample_from_typical_set()
+            a_orig = self.poly_sample_from_typical_set(level)
             A_orig = GF(circulant([x%p for x in a_orig]).transpose())
             if np.linalg.det(A_orig) !=0:
                 stop = 1           
@@ -143,8 +144,9 @@ class attack():
     #use this if you obtained the T value as a file.
     def get_T(self,T_csv):
         '''Given a csv/text file containing T, output T as an numpy array'''
-        T =  np.loadtxt(T_csv, delimiter=",",dtype = 'uint8') 
+        T =  np.loadtxt(T_csv, delimiter=",",dtype = 'int') 
         return(T)        
+    
     def T_to_dat(self,T,level=0,filename = 'toyexample'):
         '''Given an array/list of T, create a .dat file that is compatible with pyomo'''
             #Setting the parameters corresponding to the security level
@@ -158,7 +160,7 @@ class attack():
             mset = mset1
         elif level in self.SmallInstancesHalfn:
             p = 65521
-            mset =  MakeTLS(level)
+            mset =  self.MakeTLS(level)
             halfn = level
         else: 
             print("That level does not exists in this module")

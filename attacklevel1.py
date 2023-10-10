@@ -8,8 +8,8 @@ def attacklevel1(i):
     level = 1
     pkfilename = 'generatedpk/' + now +'T.csv'
     dat_name = 'dat_files/' + now
-    skfilename = "originalsk/" + now + "toysk.txt"
-    forgedskname = "forgedsk/" + now + "forgedsk.txt"
+    skfilename = "originalsk/" + now + "level1sk.txt"
+    forgedskname = "forgedsk/" + now + "level1sk.txt"
     infolist = [level, pkfilename, skfilename,forgedskname]
     #generate the key 
     attack.generate_key(level = level, pkfilename = pkfilename, skfilename = skfilename)
@@ -25,5 +25,5 @@ def attacklevel1(i):
                                                 'Succes','ElapsedTime'])
     attackdf.to_csv("attackdf.csv",index=False,header=False,mode="a") 
     return(1) 
-for i in range(3):
+for i in range(5):
      attacklevel1(i)

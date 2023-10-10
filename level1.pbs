@@ -1,4 +1,4 @@
-#PBS -N level 1
+#PBS -N level1
 #PBS -l qsub -I -l select=1:ncpus=16:mem=62gb,walltime=72s:00:00
 
 module add gurobi/10.0.1

@@ -1,5 +1,5 @@
 #PBS -N level1
-#PBS -l qsub -I -l select=1:ncpus=16:mem=62gb,walltime=72s:00:00
+#PBS -l select=1:ncpus=16:mem=62gbinterconnect=1g,walltime=48:00:00
 
 module add gurobi/10.0.1
 module add anaconda3/2022.10-gcc/9.5.0

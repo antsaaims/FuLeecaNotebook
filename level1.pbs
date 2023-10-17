@@ -3,6 +3,8 @@
 
 module add gurobi/10.0.1
 module add anaconda3/2022.10-gcc/9.5.0
+python -m pip install pyomo
+python -m pip install hsnf==0.3.13
 cd FuLeecaNotebook
 python attacklevel1.py
 git commit -m "After running the level1 attack on Palmetto"

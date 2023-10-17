@@ -16,6 +16,7 @@ import matplotlib.pyplot as plt
 from pyomo.common.timing import TicTocTimer
 from math import exp, floor
 from amplpy import modules
+
 modules.install('highs')
 modules.install('gurobi')
 print('Solver you already have')

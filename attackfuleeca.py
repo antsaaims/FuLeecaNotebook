@@ -208,6 +208,7 @@ class attack():
         R2 = Prd[halfn:2*halfn, 0:halfn]
         H = Prd[halfn:2*halfn, halfn:2*halfn]
         J = - np.matmul(R2,np.linalg.inv(R1))
+        
         #start Q1
         s = s + ' \nparam Q1:  '
         s = s+' '.join([str(i+1) for i in range(halfn)])  + ':=\n'

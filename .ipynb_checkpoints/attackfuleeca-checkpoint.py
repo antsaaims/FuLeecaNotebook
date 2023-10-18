@@ -16,14 +16,12 @@ import matplotlib.pyplot as plt
 from pyomo.common.timing import TicTocTimer
 from math import exp, floor
 from amplpy import modules
-<<<<<<< HEAD
 from hsnf import column_style_hermite_normal_form, row_style_hermite_normal_form, smith_normal_form
 
 # modules.install('highs')
 # modules.install('gurobi')
 # print('Solver you already have')
 # print(modules.installed())
-=======
 
 modules.install('highs')
 modules.install('gurobi')

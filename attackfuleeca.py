@@ -17,6 +17,10 @@ from pyomo.common.timing import TicTocTimer
 from math import exp, floor
 from amplpy import modules
 from hsnf import column_style_hermite_normal_form, row_style_hermite_normal_form, smith_normal_form
+import sys
+
+sys.setrecursionlimit(2000000)
+
 
 # modules.install('highs')
 # modules.install('gurobi')

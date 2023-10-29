@@ -18,7 +18,7 @@ def attacklevel1(name):
     #format the key
     #attack.T_to_dat(T, level=level, filename = dat_name)
     #perform the attack
-    successlist = list(attack.forge_lin_sk(filename = dat_name + ".dat",solvername = 'gurobi', ampl = False))
+    successlist = list(attack.forge_lin_sk(filename = dat_name + ".dat",solvername = 'gurobi', ampl = False, store_at = forgedskname))
     for k in successlist:
         infolist.append(k)        
     attackdf = pd.DataFrame([infolist], columns =['Level', 'PKFilename',

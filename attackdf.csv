@@ -21,3 +21,5 @@ Level,PKFilename,SKorigfilename,ForgeSKFilename,Succes,ElapsedTime
 0,generatedpk/20231017195503T.csv,originalsk/20231017195503toysk.txt,forgedsk/20231017195503forgedsk.txt,1,1.7873927280306816
 1,generatedpk/level1ex0T.csv,originalsk/level1ex0level1sk.txt,forgedsk/level1ex0level1sk.txt,1,857.9158851630054
 1,generatedpk/level1ex1T.csv,originalsk/level1ex1level1sk.txt,forgedsk/level1ex1level1sk.txt,1,792.4463667548262
+1,generatedpk/level1ex2T.csv,originalsk/level1ex2level1sk.txt,forgedsk/level1ex2level1sk.txt,0,122916.57393567031
+1,generatedpk/level1ex3T.csv,originalsk/level1ex3level1sk.txt,forgedsk/level1ex3level1sk.txt,0,147193.643883707

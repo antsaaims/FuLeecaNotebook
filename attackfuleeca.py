@@ -4,7 +4,7 @@
 # Please do not change this file, call it using from attackfuleeca import* to use all the functions
 # To do: Change the beta bvalue for 42, it does not give 42 but 55
 
-import subprocess
+#import subprocess
 import pandas as pd
 import numpy as np
 import galois
@@ -161,7 +161,13 @@ class attack():
     def get_T(self,T_csv):
         '''Given a csv/text file containing T, output T as an numpy array'''
         T =  np.loadtxt(T_csv, delimiter=",",dtype = 'int') 
-        return(T)        
+        return(T) 
+    
+    def get_T_from_array(self,T_csv):
+        '''Given a csv/text file containing T, output T as an numpy array'''
+        T =  np.loadtxt(T_csv, delimiter=",",dtype = 'int') #load the array 
+        Tmat = GF(circulant([x%p for x in T]).transpose())
+        return(Tmat) 
     
     def T_to_dat(self,T,level=0,filename = 'toyexample'):
         '''Given an array/list of T, create a .dat file that is compatible with pyomo'''

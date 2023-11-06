@@ -16,7 +16,7 @@ import matplotlib.pyplot as plt
 from pyomo.common.timing import TicTocTimer
 from math import exp, floor
 from amplpy import modules
-from hsnf import column_style_hermite_normal_form, row_style_hermite_normal_form, smith_normal_form
+from hsnf import column_style_hermite_normal_form, row_style_hermite_normal_form 
 import sys
 
 sys.setrecursionlimit(2000000)
@@ -42,38 +42,11 @@ def install(module, tool = 'pip'):
     subprocess.check_call([tool, 'install', module])
     print(f"The module {module} was installed")
 class attack(): 
-
-    def pw(self,x,p =65521, beta =0.021240595234768,Z = 94.1628598983449): #probability of x occuring
-        '''Given x, how many times does x occures'''
-        return (1/Z)*exp(-1*beta*min(x, p-x));
-
-    tau=0.25 #estimate of tau, which decides what goes in TLS
-
-    def NumberInTLS(self,x, halfn,p =65521, beta =0.021240595234768,Z = 94.1628598983449,tau=0.25):
-        '''Given an element in the field,how many of it will be in the TLS'''
-        a= self.pw(x,p,beta,Z)*halfn
-        if a >= 1:
-            b=int(floor(a)) #This will force the rounding of 0.5 to be 0 instaead of 1
-        else:
-            if a >= tau:
-                b=1
-            else:
-                b=0
-        return b
-    def make_binary(self,x):
-        return(x*x-x)
-    def MakeTLS(self,halfn,p =65521, beta =0.021240595234768,Z = 94.1628598983449,tau=0.25):
-        '''Given the value of halfn, generate the typical Lee Set'''
-        TLS=[]
-        for i in range(p):
-            TLS = TLS + [i for j in range(self.NumberInTLS(i,halfn,p,beta,Z,tau))]
-        if len(TLS)<halfn:
-            TLS =TLS + [0 for i in range(halfn-len(TLS))]
-        return TLS
-
     #Key Generation ALgorithm in Python
      # choose 0 for toy example, 1,3,5 for each corresponding NIST security level
     #Key Generation
+    def make_binary(self,x):
+        return(x*x-x)
     def poly_transform_to_two_side(self,poly):
         '''Transforms one sided shuffled
         typical set to two sided 
@@ -87,9 +60,15 @@ class attack():
         elif level ==1:
             p = 65521
             mset = mset1
-        elif level in self.SmallInstancesHalfn:
-            p = 65521
-            mset =  self.MakeTLS(halfn = level)
+        elif level == 'Toy1':
+            p = 457
+            mset = [-108, -52, -68, -36, 82, -196, -38, -55, -100, -13, 0, 34, 0, 99, -119, -68, 63, -57, -112, -65, -154, 130, 144, -33, -26, -22, 61, 1, 90, -35, -162, 182, -56, 132, -38]
+        elif level == 'Toy2':
+            p = 457
+            mset = [16, -189, -111, 45, 67, -26, 16, -210, 4, -77, -118, 39, -51, -100, -45, -44, -33, 8, -50, 104, 179, 115, -39, -73, 44, -24, 156, 25, 51, -65, 18, -125, -170, 22, -128, -70, 99, 180, 5, -49, 87, 109, 59, -98, -56, 116, -124, 7, 139, 117, -73, -32, -24, -126, 8, -97, 69, -122, -72, -68, 4, 108, -26, 15, 141, 2, 47, 15, 97, 79]
+        elif level == 'Toy3':
+            p = 457
+            mset = [131, -6, -118, 31, -124, 0, -36, -38, -113, -147, -202, 47, 69, -127, -118, -95, -118, 62, -114, 103, -207, 89, -47, 72, 30, 93, -10, -30, -55, -212, -144, 37, 99, 65, 36, 13, 49, 0, -183, 42, -46, -130, -149, 78, -84, -30, -105, 120, -54, -56, -179, -148, 114, -120, 108, 51, 32, 20, -3, 126, 9, -160, -35, 172, -135, -5, -10, 122, -100, 154, -123, 13, -129, 18, -67, -169, 36, -110, 79, 182, -8, 203, 88, 10, -17, -47, 88, -9, -156, -14, 71, 25, 44, 67, 35, 185, 71, -22, -110, -53, 227, -36, 76, 7, 86]    
         else: 
             print("That level does not exists in this module")
             return(None)
@@ -115,9 +94,16 @@ class attack():
         elif level ==1:
             p = 65521
             mset = mset1
-        elif level in self.SmallInstancesHalfn:
-            p = 65521
-            mset = self.MakeTLS(level)
+        elif level == 'Toy1':
+            p = 457
+            mset = [-108, -52, -68, -36, 82, -196, -38, -55, -100, -13, 0, 34, 0, 99, -119, -68, 63, -57, -112, -65, -154, 130, 144, -33, -26, -22, 61, 1, 90, -35, -162, 182, -56, 132, -38]
+        elif level == 'Toy2':
+            p = 457
+            mset = [16, -189, -111, 45, 67, -26, 16, -210, 4, -77, -118, 39, -51, -100, -45, -44, -33, 8, -50, 104, 179, 115, -39, -73, 44, -24, 156, 25, 51, -65, 18, -125, -170, 22, -128, -70, 99, 180, 5, -49, 87, 109, 59, -98, -56, 116, -124, 7, 139, 117, -73, -32, -24, -126, 8, -97, 69, -122, -72, -68, 4, 108, -26, 15, 141, 2, 47, 15, 97, 79]
+        elif level == 'Toy3':
+            p = 457
+            mset = [131, -6, -118, 31, -124, 0, -36, -38, -113, -147, -202, 47, 69, -127, -118, -95, -118, 62, -114, 103, -207, 89, -47, 72, 30, 93, -10, -30, -55, -212, -144, 37, 99, 65, 36, 13, 49, 0, -183, 42, -46, -130, -149, 78, -84, -30, -105, 120, -54, -56, -179, -148, 114, -120, 108, 51, 32, 20, -3, 126, 9, -160, -35, 172, -135, -5, -10, 122, -100, 154, -123, 13, -129, 18, -67, -169, 36, -110, 79, 182, -8, 203, 88, 10, -17, -47, 88, -9, -156, -14, 71, 25, 44, 67, 35, 185, 71, -22, -110, -53, 227, -36, 76, 7, 86]  
+                      
         else: 
             print("That level does not exists in this module")
             return(None)
@@ -180,10 +166,18 @@ class attack():
             p = 65521
             halfn = 659
             mset = mset1
-        elif level in self.SmallInstancesHalfn:
-            p = 65521
-            mset =  self.MakeTLS(level)
-            halfn = level
+        elif level == 'Toy1':
+            p = 457
+            halfn = 35
+            mset = [-108, -52, -68, -36, 82, -196, -38, -55, -100, -13, 0, 34, 0, 99, -119, -68, 63, -57, -112, -65, -154, 130, 144, -33, -26, -22, 61, 1, 90, -35, -162, 182, -56, 132, -38]
+        elif level == 'Toy2':
+            p = 457
+            halfn = 70
+            mset = [16, -189, -111, 45, 67, -26, 16, -210, 4, -77, -118, 39, -51, -100, -45, -44, -33, 8, -50, 104, 179, 115, -39, -73, 44, -24, 156, 25, 51, -65, 18, -125, -170, 22, -128, -70, 99, 180, 5, -49, 87, 109, 59, -98, -56, 116, -124, 7, 139, 117, -73, -32, -24, -126, 8, -97, 69, -122, -72, -68, 4, 108, -26, 15, 141, 2, 47, 15, 97, 79]
+        elif level == 'Toy3':
+            p = 457
+            halfn = 210
+            mset = [131, -6, -118, 31, -124, 0, -36, -38, -113, -147, -202, 47, 69, -127, -118, -95, -118, 62, -114, 103, -207, 89, -47, 72, 30, 93, -10, -30, -55, -212, -144, 37, 99, 65, 36, 13, 49, 0, -183, 42, -46, -130, -149, 78, -84, -30, -105, 120, -54, -56, -179, -148, 114, -120, 108, 51, 32, 20, -3, 126, 9, -160, -35, 172, -135, -5, -10, 122, -100, 154, -123, 13, -129, 18, -67, -169, 36, -110, 79, 182, -8, 203, 88, 10, -17, -47, 88, -9, -156, -14, 71, 25, 44, 67, 35, 185, 71, -22, -110, -53, 227, -36, 76, 7, 86]    
         else: 
             print("That level does not exists in this module")
             return(None)  
@@ -266,7 +260,7 @@ class attack():
 
     ##attack
     def __init__(self): 
-        self.SmallInstancesHalfn = [42,55,83,165,331,659,991,1319]#the ones that are interesting
+        #self.SmallInstancesHalfn = [42,55,83,165,331,659,991,1319]#the ones that are interesting
 
         #Level 1 FuLeeca From Actual authors
         self.mset1 = mset1

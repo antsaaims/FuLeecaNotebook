@@ -1,0 +1,47 @@
+Solver command line: ['/software/commercial/gurobi/10.0.1/gurobi1001/linux64/bin/gurobi.sh']
+
+Set parameter TokenServer to value "license8.clemson.edu"
+Read LP format model from file /local_scratch/pbs.1517163.pbs02/tmp21u1sx5l.pyomo.lp
+Reading time = 0.05 seconds
+x1: 490 rows, 5181 columns, 15328 nonzeros
+Set parameter MIPFocus to value 1
+Set parameter ZeroObjNodes to value 5
+Set parameter IntegralityFocus to value 1
+Set parameter SubMIPCuts to value 2
+Set parameter Threads to value 16
+Set parameter NonConvex to value 2
+Gurobi Optimizer version 10.0.1 build v10.0.1rc0 (linux64)
+
+CPU model: Quad-Core AMD Opteron(tm) Processor 2356, instruction set [SSE2]
+Thread count: 8 physical cores, 8 logical processors, using up to 16 threads
+
+Warning: Thread count (16) is larger than processor count (8)
+         Reduce the value of the Threads parameter to improve performance
+
+
+Optimize a model with 490 rows, 5181 columns and 15328 nonzeros
+Model fingerprint: 0xf0b543f2
+Model has 4900 quadratic constraints
+Variable types: 5111 continuous, 70 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 2e+18]
+  QMatrix range    [1e+00, 1e+00]
+  QLMatrix range   [1e+00, 1e+00]
+  Objective range  [0e+00, 0e+00]
+  Bounds range     [1e+00, 2e+02]
+  RHS range        [1e+00, 5e+02]
+Warning: Model contains large matrix coefficient range
+         Consider reformulating model or setting NumericFocus parameter
+         to avoid numerical issues.
+Presolve removed 148 rows and 3302 columns
+Presolve time: 0.02s
+
+Explored 0 nodes (0 simplex iterations) in 0.03 seconds (0.01 work units)
+Thread count was 1 (of 8 available processors)
+
+Solution count 0
+No other solutions better than -1e+100
+
+Model is infeasible
+Best objective -, best bound -, gap -
+

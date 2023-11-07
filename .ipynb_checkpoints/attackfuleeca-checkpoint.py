@@ -18,7 +18,7 @@ from math import exp, floor
 from amplpy import modules
 from hsnf import column_style_hermite_normal_form, row_style_hermite_normal_form 
 import sys
-
+import sympy as sp
 sys.setrecursionlimit(2000000)
 
 
@@ -60,15 +60,6 @@ class attack():
         elif level ==1:
             p = 65521
             mset = mset1
-        elif level == 'Toy1':
-            p = 457
-            mset = [-108, -52, -68, -36, 82, -196, -38, -55, -100, -13, 0, 34, 0, 99, -119, -68, 63, -57, -112, -65, -154, 130, 144, -33, -26, -22, 61, 1, 90, -35, -162, 182, -56, 132, -38]
-        elif level == 'Toy2':
-            p = 457
-            mset = [16, -189, -111, 45, 67, -26, 16, -210, 4, -77, -118, 39, -51, -100, -45, -44, -33, 8, -50, 104, 179, 115, -39, -73, 44, -24, 156, 25, 51, -65, 18, -125, -170, 22, -128, -70, 99, 180, 5, -49, 87, 109, 59, -98, -56, 116, -124, 7, 139, 117, -73, -32, -24, -126, 8, -97, 69, -122, -72, -68, 4, 108, -26, 15, 141, 2, 47, 15, 97, 79]
-        elif level == 'Toy3':
-            p = 457
-            mset = [131, -6, -118, 31, -124, 0, -36, -38, -113, -147, -202, 47, 69, -127, -118, -95, -118, 62, -114, 103, -207, 89, -47, 72, 30, 93, -10, -30, -55, -212, -144, 37, 99, 65, 36, 13, 49, 0, -183, 42, -46, -130, -149, 78, -84, -30, -105, 120, -54, -56, -179, -148, 114, -120, 108, 51, 32, 20, -3, 126, 9, -160, -35, 172, -135, -5, -10, 122, -100, 154, -123, 13, -129, 18, -67, -169, 36, -110, 79, 182, -8, 203, 88, 10, -17, -47, 88, -9, -156, -14, 71, 25, 44, 67, 35, 185, 71, -22, -110, -53, 227, -36, 76, 7, 86]    
         else: 
             print("That level does not exists in this module")
             return(None)
@@ -94,16 +85,7 @@ class attack():
         elif level ==1:
             p = 65521
             mset = mset1
-        elif level == 'Toy1':
-            p = 457
-            mset = [-108, -52, -68, -36, 82, -196, -38, -55, -100, -13, 0, 34, 0, 99, -119, -68, 63, -57, -112, -65, -154, 130, 144, -33, -26, -22, 61, 1, 90, -35, -162, 182, -56, 132, -38]
-        elif level == 'Toy2':
-            p = 457
-            mset = [16, -189, -111, 45, 67, -26, 16, -210, 4, -77, -118, 39, -51, -100, -45, -44, -33, 8, -50, 104, 179, 115, -39, -73, 44, -24, 156, 25, 51, -65, 18, -125, -170, 22, -128, -70, 99, 180, 5, -49, 87, 109, 59, -98, -56, 116, -124, 7, 139, 117, -73, -32, -24, -126, 8, -97, 69, -122, -72, -68, 4, 108, -26, 15, 141, 2, 47, 15, 97, 79]
-        elif level == 'Toy3':
-            p = 457
-            mset = [131, -6, -118, 31, -124, 0, -36, -38, -113, -147, -202, 47, 69, -127, -118, -95, -118, 62, -114, 103, -207, 89, -47, 72, 30, 93, -10, -30, -55, -212, -144, 37, 99, 65, 36, 13, 49, 0, -183, 42, -46, -130, -149, 78, -84, -30, -105, 120, -54, -56, -179, -148, 114, -120, 108, 51, 32, 20, -3, 126, 9, -160, -35, 172, -135, -5, -10, 122, -100, 154, -123, 13, -129, 18, -67, -169, 36, -110, 79, 182, -8, 203, 88, 10, -17, -47, 88, -9, -156, -14, 71, 25, 44, 67, 35, 185, 71, -22, -110, -53, 227, -36, 76, 7, 86]  
-                      
+                         
         else: 
             print("That level does not exists in this module")
             return(None)
@@ -166,18 +148,6 @@ class attack():
             p = 65521
             halfn = 659
             mset = mset1
-        elif level == 'Toy1':
-            p = 457
-            halfn = 35
-            mset = [-108, -52, -68, -36, 82, -196, -38, -55, -100, -13, 0, 34, 0, 99, -119, -68, 63, -57, -112, -65, -154, 130, 144, -33, -26, -22, 61, 1, 90, -35, -162, 182, -56, 132, -38]
-        elif level == 'Toy2':
-            p = 457
-            halfn = 70
-            mset = [16, -189, -111, 45, 67, -26, 16, -210, 4, -77, -118, 39, -51, -100, -45, -44, -33, 8, -50, 104, 179, 115, -39, -73, 44, -24, 156, 25, 51, -65, 18, -125, -170, 22, -128, -70, 99, 180, 5, -49, 87, 109, 59, -98, -56, 116, -124, 7, 139, 117, -73, -32, -24, -126, 8, -97, 69, -122, -72, -68, 4, 108, -26, 15, 141, 2, 47, 15, 97, 79]
-        elif level == 'Toy3':
-            p = 457
-            halfn = 210
-            mset = [131, -6, -118, 31, -124, 0, -36, -38, -113, -147, -202, 47, 69, -127, -118, -95, -118, 62, -114, 103, -207, 89, -47, 72, 30, 93, -10, -30, -55, -212, -144, 37, 99, 65, 36, 13, 49, 0, -183, 42, -46, -130, -149, 78, -84, -30, -105, 120, -54, -56, -179, -148, 114, -120, 108, 51, 32, 20, -3, 126, 9, -160, -35, 172, -135, -5, -10, 122, -100, 154, -123, 13, -129, 18, -67, -169, 36, -110, 79, 182, -8, 203, 88, 10, -17, -47, 88, -9, -156, -14, 71, 25, 44, 67, 35, 185, 71, -22, -110, -53, 227, -36, 76, 7, 86]    
         else: 
             print("That level does not exists in this module")
             return(None)  
@@ -211,7 +181,14 @@ class attack():
         R1 = Prd[0:halfn,0:halfn]
         R2 = Prd[halfn:2*halfn, 0:halfn]
         H = Prd[halfn:2*halfn, halfn:2*halfn]
-        J = - np.matmul(R2,np.linalg.inv(R1))
+        
+        
+      #  J = - np.matmul(R2,np.linalg.inv(R1)) #use sympy instead of numpy
+        J = - np.matmul(R2, np.array((sp.Matrix(R1)).inv())) 
+       # J = - sp.Matrix(R2)* (sp.Matrix(R1).inv())
+#         J = np.array(J) #fix this so that the 0 will not be zero 
+       # J = 
+        #(np.array((M*L),dtype =int))
         
         #start Q1
         s = s + ' \nparam Q1:  '
@@ -239,7 +216,7 @@ class attack():
         s = s + ' \nparam J:  '
         s = s+' '.join([str(i+1) for i in range(halfn)])  + ':=\n'
         
-        s = s+  '\n'.join(( [ '        '+str(i+1) +' '+ to_str(J[i]) for i in range(halfn)]))
+        s = s+  '\n'.join(( [ '        '+str(i+1) +' '+ to_str([int(J[i][j])  for j in range(halfn) ]) for i in range(halfn)]))
         
         s = s+';' 
         
@@ -259,10 +236,11 @@ class attack():
         return(s)
 
     ##attack
-    def __init__(self): 
+    def __init__(self, option =  "quadratic"): 
         #self.SmallInstancesHalfn = [42,55,83,165,331,659,991,1319]#the ones that are interesting
 
         #Level 1 FuLeeca From Actual authors
+        self.option = option
         self.mset1 = mset1
         self.model = AbstractModel()
         self.model.level = Param()
@@ -271,13 +249,13 @@ class attack():
         self.model.uba = Param() #upper bound of a     
         self.model.i = Set()
         self.model.j = RangeSet(1, self.model.halfn)
-        self.model.T = Param(self.model.i,self.model.j, within=Integers)
-        self.model.Q1 = Param(self.model.i,self.model.j, within=Integers)
-        self.model.R1 = Param(self.model.i,self.model.j, within=Integers)
+        self.model.T = Param(self.model.i,self.model.j, within=Reals)
+        self.model.Q1 = Param(self.model.i,self.model.j, within=Reals)
+        self.model.R1 = Param(self.model.i,self.model.j, within=Reals)
 
-        self.model.Q2 = Param(self.model.i,self.model.j, within=Integers)
-        self.model.J = Param(self.model.i,self.model.j, within=Integers)
-        self.model.H = Param(self.model.i,self.model.j, within=Integers)
+        self.model.Q2 = Param(self.model.i,self.model.j, within=Reals)
+        self.model.J = Param(self.model.i,self.model.j, within=Reals)
+        self.model.H = Param(self.model.i,self.model.j, within=Reals)
         self.model.Mset = Param(self.model.i, within=Reals)
 
         def initval(model,i):
@@ -295,12 +273,17 @@ class attack():
         
         self.model.u = Var(self.model.i, within=Integers,initialize=init0)
         self.model.z = Var(self.model.i, within=Integers,initialize=init0)
-        
-        self.model.Pap = Var(self.model.i,self.model.j,  bounds=(0,1), within=Reals,initialize=init1) 
-        self.model.Pbp = Var(self.model.i,self.model.j,  bounds=(0,1), within=Reals,initialize=init1) 
-        self.model.Pam = Var(self.model.i,self.model.j,  bounds=(0,1), within=Reals,initialize=init1) 
-        self.model.Pbm = Var(self.model.i,self.model.j,  bounds=(0,1), within=Reals,initialize=init1) 
-        
+        if self.option == "quadratic":
+            self.model.Pap = Var(self.model.i,self.model.j,  bounds=(0,1), within=Reals,initialize=init1) 
+            self.model.Pbp = Var(self.model.i,self.model.j,  bounds=(0,1), within=Reals,initialize=init1) 
+            self.model.Pam = Var(self.model.i,self.model.j,  bounds=(0,1), within=Reals,initialize=init1) 
+            self.model.Pbm = Var(self.model.i,self.model.j,  bounds=(0,1), within=Reals,initialize=init1)
+            
+        else: 
+            self.model.Pap = Var(self.model.i,self.model.j,  bounds=(0,1), within=Integers,initialize=init1) 
+            self.model.Pbp = Var(self.model.i,self.model.j,  bounds=(0,1), within=Integers,initialize=init1) 
+            self.model.Pam = Var(self.model.i,self.model.j,  bounds=(0,1), within=Integers,initialize=init1) 
+            self.model.Pbm = Var(self.model.i,self.model.j,  bounds=(0,1), within=Integers,initialize=init1)
         # Changing the modeling of b =aT
         def rule_baT1(model,i):# b =aT, u =R^-1b
             return(np.sum([model.R1[i,j]*model.u[j] for j in model.j ])== model.b[i])
@@ -359,24 +342,25 @@ class attack():
         def rule_rPb(model,i):
             return((sum([(model.Pbm[i,j]) for j in model.j])) + (sum([(model.Pbp[i,j]) for j in model.j]))==1)#each row has exactly one nonzero elements  
         self.model.rPb = Constraint(self.model.i, rule = rule_rPb)
-
-
         def rule_binaryPam(model,i,j):
             return(self.make_binary(model.Pam[i,j])== 0 )#each row has exactly one nonzero elements  
-        self.model.rule_binaryPam = Constraint(self.model.i, self.model.j, rule = rule_binaryPam)
-                   
         def rule_binaryPap(model,i,j):
             return(self.make_binary(model.Pap[i,j]) == 0 )#each row has exactly one nonzero elements  
-        self.model.rule_binaryPap = Constraint(self.model.i, self.model.j, rule = rule_binaryPap)
-                   
         def rule_binaryPbm(model,i,j):
-            return(self.make_binary(model.Pbm[i,j]) == 0 )#each row has exactly one nonzero elements  
-        self.model.rule_binaryPbm = Constraint(self.model.i,self.model.j, rule = rule_binaryPbm)
-                   
-                   
+            return(self.make_binary(model.Pbm[i,j]) == 0 )#each row has exactly one nonzero elements               
         def rule_binaryPbp(model,i,j):
-            return(self.make_binary(model.Pbp[i,j]) == 0 )#each row has exactly one nonzero elements  
-        self.model.rule_binaryPbp = Constraint(self.model.i, self.model.j, rule = rule_binaryPbp)           
+            return(self.make_binary(model.Pbp[i,j]) == 0 )#each row has exactly one nonzero elements
+        
+        
+        if self.option == "quadratic": 
+            self.model.rule_binaryPbm = Constraint(self.model.i,self.model.j, rule = rule_binaryPbm)
+            self.model.rule_binaryPap = Constraint(self.model.i, self.model.j, rule = rule_binaryPap)
+            self.model.rule_binaryPam = Constraint(self.model.i, self.model.j, rule = rule_binaryPam)
+            self.model.rule_binaryPbp = Constraint(self.model.i, self.model.j, rule = rule_binaryPbp)           
+        
+            
+        
+        
         
         
         
@@ -397,6 +381,10 @@ class attack():
             opt.options['SubMIPCuts'] =2
             opt.options['Threads'] =16
             opt.options['NonConvex'] = 2
+            opt.options['m.params.Presolve'] = 0
+            opt.options['m.params.NumericFocu'] = 3 
+            if self.option!=  "quadratic":
+                opt.options['Method'] = 2#solve with csimplex
         timer = TicTocTimer()
         timer.tic('starting timer')
         instance = self.model.create_instance(filename)

@@ -47,19 +47,13 @@ class attack():
     #Key Generation
     def make_binary(self,x):
         return(x*x-x)
-    def poly_transform_to_two_side(self,poly):
-        '''Transforms one sided shuffled
-        typical set to two sided 
-        by flipping random entries''' 
-        howtoflip = np.array([rnd.choice([1,-1]) for i in range(len(poly))])
-        return(np.array(poly)*howtoflip)
     def makeMset(self,level):
         if level == 0:
             p = 5
             mset = [0, 0, 0, 1, 1, 2, 2, 3, 4, 4, 4]        
         elif level ==1:
             p = 65521
-            mset = mset1
+            mset = mset1    
         else: 
             print("That level does not exists in this module")
             return(None)
@@ -74,9 +68,9 @@ class attack():
         res = reduce(lambda acc, _: np.random.permutation(acc),
                  range(len(Mset)), np.array(Mset))
         poly = res.tolist()
-        #Use random bits to flip signs of coeffs. in key    
-        return(self.poly_transform_to_two_side(poly))
-    
+        return(poly) #No flipping involve, just permutation
+ 
+
     def generate_key(self,level =0, verbose = False, pkfilename = 'T.csv', skfilename = "toysk.txt"):
         #Setting the parameters corresponding to the security level
         if level == 0:
@@ -84,8 +78,7 @@ class attack():
             mset = [0, 0, 0, 1, 1, 2, 2, 3, 4, 4, 4]        
         elif level ==1:
             p = 65521
-            mset = mset1
-                         
+            mset = mset1                      
         else: 
             print("That level does not exists in this module")
             return(None)
@@ -97,10 +90,10 @@ class attack():
         print('halfn is '+str(halfn))
         uba = (p-1)//2 #upper bound of a 
         
-        b_orig = self.poly_sample_from_typical_set(level)
+        b_orig = np.array(self.poly_sample_from_typical_set(level))
         stop = 0
         while not stop:
-            a_orig = self.poly_sample_from_typical_set(level)
+            a_orig = np.array(self.poly_sample_from_typical_set(level))
             A_orig = GF(circulant([x%p for x in a_orig]).transpose())
             if np.linalg.det(A_orig) !=0:
                 stop = 1           
@@ -147,7 +140,7 @@ class attack():
         elif level ==1:
             p = 65521
             halfn = 659
-            mset = mset1
+            mset = mset1   
         else: 
             print("That level does not exists in this module")
             return(None)  
@@ -174,60 +167,7 @@ class attack():
         s = s+  '\n'.join(( [ '        '+str(i+1) +' '+ to_str(T[i]) for i in range(halfn)]))
         
         s = s+';'  
-        P= np.block([[T.transpose(), p*np.identity(halfn,dtype = int)],[ np.identity(halfn,dtype = int), np.zeros(shape = (halfn,halfn), dtype =int)]])
-        Prd, Q = column_style_hermite_normal_form(P)
-        Q1 = Q[0:halfn,0:halfn]
-        Q2 = Q[0:halfn, halfn:2*halfn]
-        R1 = Prd[0:halfn,0:halfn]
-        R2 = Prd[halfn:2*halfn, 0:halfn]
-        H = Prd[halfn:2*halfn, halfn:2*halfn]
-        
-        
-      #  J = - np.matmul(R2,np.linalg.inv(R1)) #use sympy instead of numpy
-        J = - np.matmul(R2, np.array((sp.Matrix(R1)).inv())) 
-       # J = - sp.Matrix(R2)* (sp.Matrix(R1).inv())
-#         J = np.array(J) #fix this so that the 0 will not be zero 
-       # J = 
-        #(np.array((M*L),dtype =int))
-        
-        #start Q1
-        s = s + ' \nparam Q1:  '
-        s = s+' '.join([str(i+1) for i in range(halfn)])  + ':=\n'
-        
-        s = s+  '\n'.join(( [ '        '+str(i+1) +' '+ to_str(Q1[i]) for i in range(halfn)]))
-        
-        s = s+';' 
-        #start R1
-        s = s + ' \nparam R1:  '
-        s = s+' '.join([str(i+1) for i in range(halfn)])  + ':=\n'
-        
-        s = s+  '\n'.join(( [ '        '+str(i+1) +' '+ to_str(R1[i]) for i in range(halfn)]))
-        
-        s = s+';' 
-        #start Q2
-        s = s + ' \nparam Q2:  '
-        s = s+' '.join([str(i+1) for i in range(halfn)])  + ':=\n'
-        
-        s = s+  '\n'.join(( [ '        '+str(i+1) +' '+ to_str(Q2[i]) for i in range(halfn)]))
-        
-        s = s+';' 
-        
-        #start J
-        s = s + ' \nparam J:  '
-        s = s+' '.join([str(i+1) for i in range(halfn)])  + ':=\n'
-        
-        s = s+  '\n'.join(( [ '        '+str(i+1) +' '+ to_str([int(J[i][j])  for j in range(halfn) ]) for i in range(halfn)]))
-        
-        s = s+';' 
-        
-        #start H
-        s = s + ' \nparam H:  '
-        s = s+' '.join([str(i+1) for i in range(halfn)])  + ':=\n'
-        
-        s = s+  '\n'.join(( [ '        '+str(i+1) +' '+ to_str(H[i]) for i in range(halfn)]))
-        
-        s = s+';' 
-        
+                
         #np.savetxt(filename + '.dat', s , fmt='%s')
         with open(filename+'.dat',"w") as f:
             f.write(s)
@@ -236,9 +176,8 @@ class attack():
         return(s)
 
     ##attack
-    def __init__(self, option =  "quadratic"): 
+    def __init__(self, option =  "linear"): 
         #self.SmallInstancesHalfn = [42,55,83,165,331,659,991,1319]#the ones that are interesting
-
         #Level 1 FuLeeca From Actual authors
         self.option = option
         self.mset1 = mset1
@@ -250,12 +189,6 @@ class attack():
         self.model.i = Set()
         self.model.j = RangeSet(1, self.model.halfn)
         self.model.T = Param(self.model.i,self.model.j, within=Reals)
-        self.model.Q1 = Param(self.model.i,self.model.j, within=Reals)
-        self.model.R1 = Param(self.model.i,self.model.j, within=Reals)
-
-        self.model.Q2 = Param(self.model.i,self.model.j, within=Reals)
-        self.model.J = Param(self.model.i,self.model.j, within=Reals)
-        self.model.H = Param(self.model.i,self.model.j, within=Reals)
         self.model.Mset = Param(self.model.i, within=Reals)
 
         def initval(model,i):
@@ -265,109 +198,57 @@ class attack():
         def init1(model,i,j):
             return(0)
         self.model.a = Var(self.model.i, bounds=(-self.model.uba,self.model.uba), within= Reals, initialize=init0)
-        self.model.ap = Var(self.model.i, bounds=(0,self.model.uba), within= Reals, initialize=init0)
-        self.model.am = Var(self.model.i, bounds=(-self.model.uba,0), within= Reals, initialize=init0) # am
+        self.model.q = Var(self.model.i, within=Integers,initialize=init0)  # safe lower and upper bound        
         self.model.b = Var(self.model.i, bounds=(-self.model.uba,self.model.uba) , within= Reals, initialize=init0)
-        self.model.bp = Var(self.model.i, bounds=(0,self.model.uba) , within= Reals, initialize=init0)
-        self.model.bm = Var(self.model.i, bounds=(-self.model.uba,0) , within= Reals, initialize=init0)
         
-        self.model.u = Var(self.model.i, within=Integers,initialize=init0)
-        self.model.z = Var(self.model.i, within=Integers,initialize=init0)
         if self.option == "quadratic":
-            self.model.Pap = Var(self.model.i,self.model.j,  bounds=(0,1), within=Reals,initialize=init1) 
-            self.model.Pbp = Var(self.model.i,self.model.j,  bounds=(0,1), within=Reals,initialize=init1) 
-            self.model.Pam = Var(self.model.i,self.model.j,  bounds=(0,1), within=Reals,initialize=init1) 
-            self.model.Pbm = Var(self.model.i,self.model.j,  bounds=(0,1), within=Reals,initialize=init1)
-            
+            self.model.Pa  = Var(self.model.i,self.model.j,  bounds=(0,1), within=Reals,initialize=init1) 
+            self.model.Pb = Var(self.model.i,self.model.j,  bounds=(0,1), within=Reals,initialize=init1)             
         else: 
-            self.model.Pap = Var(self.model.i,self.model.j,  bounds=(0,1), within=Integers,initialize=init1) 
-            self.model.Pbp = Var(self.model.i,self.model.j,  bounds=(0,1), within=Integers,initialize=init1) 
-            self.model.Pam = Var(self.model.i,self.model.j,  bounds=(0,1), within=Integers,initialize=init1) 
-            self.model.Pbm = Var(self.model.i,self.model.j,  bounds=(0,1), within=Integers,initialize=init1)
-        # Changing the modeling of b =aT
-        def rule_baT1(model,i):# b =aT, u =R^-1b
-            return(np.sum([model.R1[i,j]*model.u[j] for j in model.j ])== model.b[i])
-        self.model.C1 = Constraint(self.model.i,rule=rule_baT1) ##This
-        def rule_baT2(model,i): #b=aT,  -R2R1^-1b <= Hz
-            return(np.sum([model.J[i,j]*model.b[j] - model.H[i,j]*model.z[j] for j in model.j ])<=0)
-
-        self.model.C1a   = Constraint(self.model.i,rule=rule_baT2) ##This is the only thing that has modulo in it so if we change it it should be a liitle bit better
+            self.model.Pa  = Var(self.model.i,self.model.j,  bounds=(0,1), within=Integers,initialize=init1) 
+            self.model.Pb  = Var(self.model.i,self.model.j,  bounds=(0,1), within=Integers,initialize=init1) 
+            
+        # Modeling of b =aT
+        def rule_baT(model,i):
+            return(np.sum([model.a[j]*model.T[j,i] for j in model.j ]) == model.q[i]*model.p + model.b[i])#b =aT    
+        self.model.C1   = Constraint(self.model.i,rule=rule_baT)
         
-        def rule_baT3(model,i): #b=aT,  e-R2R1^-1b >= Hz
-            return(model.p -1 + np.sum([model.J[i,j]*model.b[j] - model.H[i,j]*model.z[j] for j in model.j ])>=0)
-        self.model.C1b   = Constraint(self.model.i,rule=rule_baT3) ##This is the only thing that has modulo in it so if we change it it should be a liitle bit better
-              
-        
-        def rule_baT4(model,i): #b=aT,  Q1 u + Q2 z =a 
-            return(np.sum([model.Q1[i,j]*model.u[j] + model.Q2[i,j]*model.z[j] for j in model.j ])== model.a[i])
-        self.model.C1c = Constraint(self.model.i,rule=rule_baT4) ##This is the only thing that has modulo in it so if we change it it should be a liitle bit better        
+        def rule_a(model,i): #a  =  Mset*Pa 
+            return(sum([ model.Mset[j]*model.Pa[j,i] for j in model.j]) == model.a[i])#building a
+        self.model.Ca = Constraint(self.model.i, rule = rule_a)
 
-        
-        
-        def rule_am(model,i): #am = -Mset*Pam
-            return(sum([-model.Mset[j]*model.Pam[j,i] for j in model.j]) == model.am[i])#building a
-        self.model.Cam = Constraint(self.model.i, rule = rule_am)
-        def rule_ap(model,i): #ap = Mset*Pap
-            return(sum([model.Mset[j]*model.Pap[j,i] for j in model.j]) == model.ap[i])#building a
-        self.model.Cap = Constraint(self.model.i, rule = rule_ap)
-
-        def rule_sum_a(model,i): #ap = Mset*Pap
-            return(model.am[i]+ model.ap[i]== model.a[i])#building a
-        self.model.sum_a = Constraint(self.model.i, rule = rule_sum_a)
-
-        def rule_bm(model,i): #am = -Mset*Pam
-            return(sum([-model.Mset[j]*model.Pbm[j,i] for j in model.j]) == model.bm[i])#building a
-        self.model.Cbm = Constraint(self.model.i, rule = rule_bm)
-        def rule_bp(model,i): #ap = Mset*Pap
-            return(sum([model.Mset[j]*model.Pbp[j,i] for j in model.j]) == model.bp[i])#building a
-        self.model.Cbp = Constraint(self.model.i, rule = rule_bp)
-
-        def rule_sum_b(model,i): #ap = Mset*Pap
-            return(model.bm[i]+ model.bp[i]== model.b[i])#building a
-        self.model.sum_b = Constraint(self.model.i, rule = rule_sum_b)
-
-
+        def rule_b(model,i): #am = -Mset*Pam
+            return(sum([ model.Mset[j]*model.Pb[j,i] for j in model.j]) == model.b[i])#building a
+        self.model.Cb = Constraint(self.model.i, rule = rule_b)
 
         def rule_cPa(model,i):
-            return((sum([(model.Pam[j,i])  for j in model.j])) + (sum([(model.Pap[j,i])  for j in model.j]))==1)#each column exactly one nonzero elements  
+            return((sum([(model.Pa[j,i])  for j in model.j]))==1)#each column exactly one nonzero elements  
         self.model.cPa = Constraint(self.model.i, rule = rule_cPa)
 
         def rule_cPb(model,i):
-            return((sum([(model.Pbm[j,i]) for j in model.j])) + (sum([(model.Pbp[j,i]) for j in model.j]))==1)#each column has exactly one nonzero elements  
+            return((sum([(model.Pb[j,i]) for j in model.j])) ==1)#each column has exactly one nonzero elements  
         self.model.cPb = Constraint(self.model.i, rule = rule_cPb)
 
         def rule_rPa(model,i):
-            return((sum([(model.Pam[i,j]) for j in model.j])) +(sum([(model.Pap[i,j]) for j in model.j])) ==1)#each row exactly one nonzero elements  
+            return((sum([(model.Pa[i,j]) for j in model.j]))  ==1)#each row exactly one nonzero elements  
         self.model.rPa = Constraint(self.model.i, rule = rule_rPa)
         def rule_rPb(model,i):
-            return((sum([(model.Pbm[i,j]) for j in model.j])) + (sum([(model.Pbp[i,j]) for j in model.j]))==1)#each row has exactly one nonzero elements  
+            return((sum([(model.Pb[i,j]) for j in model.j]))==1)#each row has exactly one nonzero elements  
         self.model.rPb = Constraint(self.model.i, rule = rule_rPb)
-        def rule_binaryPam(model,i,j):
-            return(self.make_binary(model.Pam[i,j])== 0 )#each row has exactly one nonzero elements  
-        def rule_binaryPap(model,i,j):
-            return(self.make_binary(model.Pap[i,j]) == 0 )#each row has exactly one nonzero elements  
-        def rule_binaryPbm(model,i,j):
-            return(self.make_binary(model.Pbm[i,j]) == 0 )#each row has exactly one nonzero elements               
-        def rule_binaryPbp(model,i,j):
-            return(self.make_binary(model.Pbp[i,j]) == 0 )#each row has exactly one nonzero elements
         
+        def rule_binaryPa(model,i,j):
+            return(self.make_binary(model.Pa[i,j])== 0 )#each row has exactly one nonzero elements  
+        def rule_binaryPb(model,i,j):
+            return(self.make_binary(model.Pb[i,j]) == 0 )#each row has exactly one nonzero elements       
         
         if self.option == "quadratic": 
-            self.model.rule_binaryPbm = Constraint(self.model.i,self.model.j, rule = rule_binaryPbm)
-            self.model.rule_binaryPap = Constraint(self.model.i, self.model.j, rule = rule_binaryPap)
-            self.model.rule_binaryPam = Constraint(self.model.i, self.model.j, rule = rule_binaryPam)
-            self.model.rule_binaryPbp = Constraint(self.model.i, self.model.j, rule = rule_binaryPbp)           
-        
-            
-        
-        
-        
-        
-        
+            self.model.rule_binaryPb  = Constraint(self.model.i,self.model.j, rule = rule_binaryPb )
+            self.model.rule_binaryPa  = Constraint(self.model.i, self.model.j, rule = rule_binaryPa )                           
         def rule_OF(model):
-            return 0 #We only need feasibility
-
+            return sum(model.q[i] for i in model.i)
+        
         self.model.obj = Objective(rule=rule_OF, sense=maximize)
+        
     def forge_lin_sk(self,filename = "toyexample.dat", store_at = "forgedsk.txt", solvername = 'gurobi', ampl = False, verbose = False):
         if ampl==True:
             opt = SolverFactory(modules.find(solvername), solve_io="nl") #Couenne was good, ipopt did not give a result(always max iteration)
@@ -388,6 +269,8 @@ class attack():
         timer = TicTocTimer()
         timer.tic('starting timer')
         instance = self.model.create_instance(filename)
+        # if verbose:
+        #     instance.display()
         print('We just have built the instance, start solving stay tuned!')
         
         #instance.pprint()

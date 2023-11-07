@@ -60,6 +60,15 @@ class attack():
         elif level ==1:
             p = 65521
             mset = mset1
+        elif level == 'Toy1':
+            p = 457
+            mset = [-108, -52, -68, -36, 82, -196, -38, -55, -100, -13, 0, 34, 0, 99, -119, -68, 63, -57, -112, -65, -154, 130, 144, -33, -26, -22, 61, 1, 90, -35, -162, 182, -56, 132, -38]
+        elif level == 'Toy2':
+            p = 457
+            mset = [16, -189, -111, 45, 67, -26, 16, -210, 4, -77, -118, 39, -51, -100, -45, -44, -33, 8, -50, 104, 179, 115, -39, -73, 44, -24, 156, 25, 51, -65, 18, -125, -170, 22, -128, -70, 99, 180, 5, -49, 87, 109, 59, -98, -56, 116, -124, 7, 139, 117, -73, -32, -24, -126, 8, -97, 69, -122, -72, -68, 4, 108, -26, 15, 141, 2, 47, 15, 97, 79]
+        elif level == 'Toy3':
+            p = 457
+            mset = [131, -6, -118, 31, -124, 0, -36, -38, -113, -147, -202, 47, 69, -127, -118, -95, -118, 62, -114, 103, -207, 89, -47, 72, 30, 93, -10, -30, -55, -212, -144, 37, 99, 65, 36, 13, 49, 0, -183, 42, -46, -130, -149, 78, -84, -30, -105, 120, -54, -56, -179, -148, 114, -120, 108, 51, 32, 20, -3, 126, 9, -160, -35, 172, -135, -5, -10, 122, -100, 154, -123, 13, -129, 18, -67, -169, 36, -110, 79, 182, -8, 203, 88, 10, -17, -47, 88, -9, -156, -14, 71, 25, 44, 67, 35, 185, 71, -22, -110, -53, 227, -36, 76, 7, 86]    
         else: 
             print("That level does not exists in this module")
             return(None)
@@ -85,7 +94,16 @@ class attack():
         elif level ==1:
             p = 65521
             mset = mset1
-                         
+        elif level == 'Toy1':
+            p = 457
+            mset = [-108, -52, -68, -36, 82, -196, -38, -55, -100, -13, 0, 34, 0, 99, -119, -68, 63, -57, -112, -65, -154, 130, 144, -33, -26, -22, 61, 1, 90, -35, -162, 182, -56, 132, -38]
+        elif level == 'Toy2':
+            p = 457
+            mset = [16, -189, -111, 45, 67, -26, 16, -210, 4, -77, -118, 39, -51, -100, -45, -44, -33, 8, -50, 104, 179, 115, -39, -73, 44, -24, 156, 25, 51, -65, 18, -125, -170, 22, -128, -70, 99, 180, 5, -49, 87, 109, 59, -98, -56, 116, -124, 7, 139, 117, -73, -32, -24, -126, 8, -97, 69, -122, -72, -68, 4, 108, -26, 15, 141, 2, 47, 15, 97, 79]
+        elif level == 'Toy3':
+            p = 457
+            mset = [131, -6, -118, 31, -124, 0, -36, -38, -113, -147, -202, 47, 69, -127, -118, -95, -118, 62, -114, 103, -207, 89, -47, 72, 30, 93, -10, -30, -55, -212, -144, 37, 99, 65, 36, 13, 49, 0, -183, 42, -46, -130, -149, 78, -84, -30, -105, 120, -54, -56, -179, -148, 114, -120, 108, 51, 32, 20, -3, 126, 9, -160, -35, 172, -135, -5, -10, 122, -100, 154, -123, 13, -129, 18, -67, -169, 36, -110, 79, 182, -8, 203, 88, 10, -17, -47, 88, -9, -156, -14, 71, 25, 44, 67, 35, 185, 71, -22, -110, -53, 227, -36, 76, 7, 86]  
+                      
         else: 
             print("That level does not exists in this module")
             return(None)
@@ -148,6 +166,18 @@ class attack():
             p = 65521
             halfn = 659
             mset = mset1
+        elif level == 'Toy1':
+            p = 457
+            halfn = 35
+            mset = [-108, -52, -68, -36, 82, -196, -38, -55, -100, -13, 0, 34, 0, 99, -119, -68, 63, -57, -112, -65, -154, 130, 144, -33, -26, -22, 61, 1, 90, -35, -162, 182, -56, 132, -38]
+        elif level == 'Toy2':
+            p = 457
+            halfn = 70
+            mset = [16, -189, -111, 45, 67, -26, 16, -210, 4, -77, -118, 39, -51, -100, -45, -44, -33, 8, -50, 104, 179, 115, -39, -73, 44, -24, 156, 25, 51, -65, 18, -125, -170, 22, -128, -70, 99, 180, 5, -49, 87, 109, 59, -98, -56, 116, -124, 7, 139, 117, -73, -32, -24, -126, 8, -97, 69, -122, -72, -68, 4, 108, -26, 15, 141, 2, 47, 15, 97, 79]
+        elif level == 'Toy3':
+            p = 457
+            halfn = 210
+            mset = [131, -6, -118, 31, -124, 0, -36, -38, -113, -147, -202, 47, 69, -127, -118, -95, -118, 62, -114, 103, -207, 89, -47, 72, 30, 93, -10, -30, -55, -212, -144, 37, 99, 65, 36, 13, 49, 0, -183, 42, -46, -130, -149, 78, -84, -30, -105, 120, -54, -56, -179, -148, 114, -120, 108, 51, 32, 20, -3, 126, 9, -160, -35, 172, -135, -5, -10, 122, -100, 154, -123, 13, -129, 18, -67, -169, 36, -110, 79, 182, -8, 203, 88, 10, -17, -47, 88, -9, -156, -14, 71, 25, 44, 67, 35, 185, 71, -22, -110, -53, 227, -36, 76, 7, 86]    
         else: 
             print("That level does not exists in this module")
             return(None)  
@@ -174,60 +204,7 @@ class attack():
         s = s+  '\n'.join(( [ '        '+str(i+1) +' '+ to_str(T[i]) for i in range(halfn)]))
         
         s = s+';'  
-        P= np.block([[T.transpose(), p*np.identity(halfn,dtype = int)],[ np.identity(halfn,dtype = int), np.zeros(shape = (halfn,halfn), dtype =int)]])
-        Prd, Q = column_style_hermite_normal_form(P)
-        Q1 = Q[0:halfn,0:halfn]
-        Q2 = Q[0:halfn, halfn:2*halfn]
-        R1 = Prd[0:halfn,0:halfn]
-        R2 = Prd[halfn:2*halfn, 0:halfn]
-        H = Prd[halfn:2*halfn, halfn:2*halfn]
-        
-        
-      #  J = - np.matmul(R2,np.linalg.inv(R1)) #use sympy instead of numpy
-        J = - np.matmul(R2, np.array((sp.Matrix(R1)).inv())) 
-       # J = - sp.Matrix(R2)* (sp.Matrix(R1).inv())
-#         J = np.array(J) #fix this so that the 0 will not be zero 
-       # J = 
-        #(np.array((M*L),dtype =int))
-        
-        #start Q1
-        s = s + ' \nparam Q1:  '
-        s = s+' '.join([str(i+1) for i in range(halfn)])  + ':=\n'
-        
-        s = s+  '\n'.join(( [ '        '+str(i+1) +' '+ to_str(Q1[i]) for i in range(halfn)]))
-        
-        s = s+';' 
-        #start R1
-        s = s + ' \nparam R1:  '
-        s = s+' '.join([str(i+1) for i in range(halfn)])  + ':=\n'
-        
-        s = s+  '\n'.join(( [ '        '+str(i+1) +' '+ to_str(R1[i]) for i in range(halfn)]))
-        
-        s = s+';' 
-        #start Q2
-        s = s + ' \nparam Q2:  '
-        s = s+' '.join([str(i+1) for i in range(halfn)])  + ':=\n'
-        
-        s = s+  '\n'.join(( [ '        '+str(i+1) +' '+ to_str(Q2[i]) for i in range(halfn)]))
-        
-        s = s+';' 
-        
-        #start J
-        s = s + ' \nparam J:  '
-        s = s+' '.join([str(i+1) for i in range(halfn)])  + ':=\n'
-        
-        s = s+  '\n'.join(( [ '        '+str(i+1) +' '+ to_str([int(J[i][j])  for j in range(halfn) ]) for i in range(halfn)]))
-        
-        s = s+';' 
-        
-        #start H
-        s = s + ' \nparam H:  '
-        s = s+' '.join([str(i+1) for i in range(halfn)])  + ':=\n'
-        
-        s = s+  '\n'.join(( [ '        '+str(i+1) +' '+ to_str(H[i]) for i in range(halfn)]))
-        
-        s = s+';' 
-        
+                
         #np.savetxt(filename + '.dat', s , fmt='%s')
         with open(filename+'.dat',"w") as f:
             f.write(s)
@@ -236,9 +213,8 @@ class attack():
         return(s)
 
     ##attack
-    def __init__(self, option =  "quadratic"): 
+    def __init__(self, option =  "linear"): 
         #self.SmallInstancesHalfn = [42,55,83,165,331,659,991,1319]#the ones that are interesting
-
         #Level 1 FuLeeca From Actual authors
         self.option = option
         self.mset1 = mset1
@@ -250,12 +226,6 @@ class attack():
         self.model.i = Set()
         self.model.j = RangeSet(1, self.model.halfn)
         self.model.T = Param(self.model.i,self.model.j, within=Reals)
-        self.model.Q1 = Param(self.model.i,self.model.j, within=Reals)
-        self.model.R1 = Param(self.model.i,self.model.j, within=Reals)
-
-        self.model.Q2 = Param(self.model.i,self.model.j, within=Reals)
-        self.model.J = Param(self.model.i,self.model.j, within=Reals)
-        self.model.H = Param(self.model.i,self.model.j, within=Reals)
         self.model.Mset = Param(self.model.i, within=Reals)
 
         def initval(model,i):
@@ -265,14 +235,14 @@ class attack():
         def init1(model,i,j):
             return(0)
         self.model.a = Var(self.model.i, bounds=(-self.model.uba,self.model.uba), within= Reals, initialize=init0)
+        self.model.q = Var(self.model.i, within=Integers,initialize=init0)  # safe lower and upper bound
+        
         self.model.ap = Var(self.model.i, bounds=(0,self.model.uba), within= Reals, initialize=init0)
         self.model.am = Var(self.model.i, bounds=(-self.model.uba,0), within= Reals, initialize=init0) # am
         self.model.b = Var(self.model.i, bounds=(-self.model.uba,self.model.uba) , within= Reals, initialize=init0)
         self.model.bp = Var(self.model.i, bounds=(0,self.model.uba) , within= Reals, initialize=init0)
         self.model.bm = Var(self.model.i, bounds=(-self.model.uba,0) , within= Reals, initialize=init0)
         
-        self.model.u = Var(self.model.i, within=Integers,initialize=init0)
-        self.model.z = Var(self.model.i, within=Integers,initialize=init0)
         if self.option == "quadratic":
             self.model.Pap = Var(self.model.i,self.model.j,  bounds=(0,1), within=Reals,initialize=init1) 
             self.model.Pbp = Var(self.model.i,self.model.j,  bounds=(0,1), within=Reals,initialize=init1) 
@@ -284,25 +254,12 @@ class attack():
             self.model.Pbp = Var(self.model.i,self.model.j,  bounds=(0,1), within=Integers,initialize=init1) 
             self.model.Pam = Var(self.model.i,self.model.j,  bounds=(0,1), within=Integers,initialize=init1) 
             self.model.Pbm = Var(self.model.i,self.model.j,  bounds=(0,1), within=Integers,initialize=init1)
-        # Changing the modeling of b =aT
-        def rule_baT1(model,i):# b =aT, u =R^-1b
-            return(np.sum([model.R1[i,j]*model.u[j] for j in model.j ])== model.b[i])
-        self.model.C1 = Constraint(self.model.i,rule=rule_baT1) ##This
-        def rule_baT2(model,i): #b=aT,  -R2R1^-1b <= Hz
-            return(np.sum([model.J[i,j]*model.b[j] - model.H[i,j]*model.z[j] for j in model.j ])<=0)
-
-        self.model.C1a   = Constraint(self.model.i,rule=rule_baT2) ##This is the only thing that has modulo in it so if we change it it should be a liitle bit better
+            
+        # Modeling of b =aT
+        def rule_baT(model,i):
+            return(np.sum([model.a[j]*model.T[j,i] for j in model.j ]) == model.q[i]*model.p + model.b[i])#b =aT  
         
-        def rule_baT3(model,i): #b=aT,  e-R2R1^-1b >= Hz
-            return(model.p -1 + np.sum([model.J[i,j]*model.b[j] - model.H[i,j]*model.z[j] for j in model.j ])>=0)
-        self.model.C1b   = Constraint(self.model.i,rule=rule_baT3) ##This is the only thing that has modulo in it so if we change it it should be a liitle bit better
-              
-        
-        def rule_baT4(model,i): #b=aT,  Q1 u + Q2 z =a 
-            return(np.sum([model.Q1[i,j]*model.u[j] + model.Q2[i,j]*model.z[j] for j in model.j ])== model.a[i])
-        self.model.C1c = Constraint(self.model.i,rule=rule_baT4) ##This is the only thing that has modulo in it so if we change it it should be a liitle bit better        
-
-        
+        self.model.C1   = Constraint(self.model.i,rule=rule_baT)
         
         def rule_am(model,i): #am = -Mset*Pam
             return(sum([-model.Mset[j]*model.Pam[j,i] for j in model.j]) == model.am[i])#building a
@@ -342,6 +299,7 @@ class attack():
         def rule_rPb(model,i):
             return((sum([(model.Pbm[i,j]) for j in model.j])) + (sum([(model.Pbp[i,j]) for j in model.j]))==1)#each row has exactly one nonzero elements  
         self.model.rPb = Constraint(self.model.i, rule = rule_rPb)
+        
         def rule_binaryPam(model,i,j):
             return(self.make_binary(model.Pam[i,j])== 0 )#each row has exactly one nonzero elements  
         def rule_binaryPap(model,i,j):
@@ -356,18 +314,12 @@ class attack():
             self.model.rule_binaryPbm = Constraint(self.model.i,self.model.j, rule = rule_binaryPbm)
             self.model.rule_binaryPap = Constraint(self.model.i, self.model.j, rule = rule_binaryPap)
             self.model.rule_binaryPam = Constraint(self.model.i, self.model.j, rule = rule_binaryPam)
-            self.model.rule_binaryPbp = Constraint(self.model.i, self.model.j, rule = rule_binaryPbp)           
-        
-            
-        
-        
-        
-        
-        
+            self.model.rule_binaryPbp = Constraint(self.model.i, self.model.j, rule = rule_binaryPbp)                   
         def rule_OF(model):
+            #return sum(model.q[i] for i in model.i)
             return 0 #We only need feasibility
-
         self.model.obj = Objective(rule=rule_OF, sense=maximize)
+        
     def forge_lin_sk(self,filename = "toyexample.dat", store_at = "forgedsk.txt", solvername = 'gurobi', ampl = False, verbose = False):
         if ampl==True:
             opt = SolverFactory(modules.find(solvername), solve_io="nl") #Couenne was good, ipopt did not give a result(always max iteration)
@@ -388,6 +340,8 @@ class attack():
         timer = TicTocTimer()
         timer.tic('starting timer')
         instance = self.model.create_instance(filename)
+        if verbose:
+            instance.display()
         print('We just have built the instance, start solving stay tuned!')
         
         #instance.pprint()

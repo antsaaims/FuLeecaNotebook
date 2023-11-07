@@ -14,13 +14,6 @@ from hsnf import column_style_hermite_normal_form, row_style_hermite_normal_form
 import sys
 import sympy as sp
 sys.setrecursionlimit(2000000)
-
-
-# modules.install('highs')
-# modules.install('gurobi')
-# print('Solver you already have')
-# print(modules.installed())
-
 modules.install('highs')
 modules.install('gurobi')
 print('Solver you already have')
@@ -165,7 +158,9 @@ class attack():
         s = s+  '\n'.join(( [ '        '+str(i+1) +' '+ to_str(T[i]) for i in range(halfn)]))
         
         s = s+';'  
-        P= np.block([[T.transpose(), p*np.identity(halfn,dtype = int)],[ np.identity(halfn,dtype = int), np.zeros(shape = (halfn,halfn), dtype =int)]])
+        P= np.block([[T.transpose(), p*np.identity(halfn,dtype = int)],
+                     [ np.identity(halfn,dtype = int),
+                      np.zeros(shape = (halfn,halfn), dtype =int)]])
         Prd, Q = column_style_hermite_normal_form(P)
         Q1 = Q[0:halfn,0:halfn]
         Q2 = Q[0:halfn, halfn:2*halfn]
@@ -192,7 +187,8 @@ class attack():
         s = s + ' \nparam R1:  '
         s = s+' '.join([str(i+1) for i in range(halfn)])  + ':=\n'
         
-        s = s+  '\n'.join(( [ '        '+str(i+1) +' '+ to_str(R1[i]) for i in range(halfn)]))
+        s = s+  '\n'.join(( [ '        '+str(i+1) 
+                             +' '+ to_str(R1[i]) for i in range(halfn)]))
         
         s = s+';' 
         #start Q2
@@ -207,7 +203,8 @@ class attack():
         s = s + ' \nparam J:  '
         s = s+' '.join([str(i+1) for i in range(halfn)])  + ':=\n'
         
-        s = s+  '\n'.join(( [ '        '+str(i+1) +' '+ to_str([int(J[i][j])  for j in range(halfn) ]) for i in range(halfn)]))
+        s = s+  '\n'.join(( [ '        '+str(i+1)
+                             +' '+ to_str([int(J[i][j])  for j in range(halfn) ]) for i in range(halfn)]))
         
         s = s+';' 
         
@@ -278,17 +275,15 @@ class attack():
         def rule_baT2(model,i): #b=aT,  -R2R1^-1b <= Hz
             return(np.sum([model.J[i,j]*model.b[j] - model.H[i,j]*model.z[j] for j in model.j ])<=0)
 
-        self.model.C1a   = Constraint(self.model.i,rule=rule_baT2) ##This is the only thing that has modulo in it so if we change it it should be a liitle bit better
+        self.model.C1a   = Constraint(self.model.i,rule=rule_baT2) 
         
         def rule_baT3(model,i): #b=aT,  e-R2R1^-1b >= Hz
             return(model.p -1 + np.sum([model.J[i,j]*model.b[j] - model.H[i,j]*model.z[j] for j in model.j ])>=0)
-        self.model.C1b   = Constraint(self.model.i,rule=rule_baT3) ##This is the only thing that has modulo in it so if we change it it should be a liitle bit better
-              
-        
+        self.model.C1b   = Constraint(self.model.i,rule=rule_baT3)
+                    
         def rule_baT4(model,i): #b=aT,  Q1 u + Q2 z =a 
             return(np.sum([model.Q1[i,j]*model.u[j] + model.Q2[i,j]*model.z[j] for j in model.j ])== model.a[i])
-        self.model.C1c = Constraint(self.model.i,rule=rule_baT4) ##This is the only thing that has modulo in it so if we change it it should be a liitle bit better        
-
+        self.model.C1c = Constraint(self.model.i,rule=rule_baT4) 
       
         def rule_a(model,i): #a  =  Mset*Pa 
             return(sum([ model.Mset[j]*model.Pa[j,i] for j in model.j]) == model.a[i])#building a
